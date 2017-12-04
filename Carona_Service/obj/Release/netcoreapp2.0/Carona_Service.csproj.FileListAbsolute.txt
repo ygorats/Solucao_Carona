@@ -1,0 +1,10 @@
+C:\Android\Projects\Solucao_Carona\Carona_Service\bin\Release\netcoreapp2.0\Carona_Service.deps.json
+C:\Android\Projects\Solucao_Carona\Carona_Service\bin\Release\netcoreapp2.0\Carona_Service.runtimeconfig.json
+C:\Android\Projects\Solucao_Carona\Carona_Service\bin\Release\netcoreapp2.0\Carona_Service.runtimeconfig.dev.json
+C:\Android\Projects\Solucao_Carona\Carona_Service\bin\Release\netcoreapp2.0\Carona_Service.dll
+C:\Android\Projects\Solucao_Carona\Carona_Service\bin\Release\netcoreapp2.0\Carona_Service.pdb
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.csproj.CoreCompileInputs.cache
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.AssemblyInfoInputs.cache
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.AssemblyInfo.cs
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.dll
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.pdb

@@ -1,0 +1,42 @@
+﻿@model Carona_Service.Models.CaronaOferta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CaronaOferta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioPartida)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HorarioPartida)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.HorarioChegada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HorarioChegada)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
