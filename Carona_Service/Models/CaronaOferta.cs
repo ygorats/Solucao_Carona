@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Xamarin.Forms.Maps;
 
 namespace Carona_Service.Models
 {
@@ -14,13 +16,13 @@ namespace Carona_Service.Models
 
         [Display(Name="Ponto de Partida")]
         [NotMapped]
-        public string PontoPartida { get; set; }
+        public Position PontoPartida { get; set; }
 
         [NotMapped]
-        public string PontoChegada { get; set; }
+        public Position PontoChegada { get; set; }
 
         [NotMapped]
-        public string PontosIntermediarios { get; set; }
+        public List<Position> PontosIntermediarios { get; set; }
 
         [Display(Name = "Horário de partida")]
         [DataType(DataType.Time)]

@@ -8,9 +8,4 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\Android\Projects\Solucao_Carona\Carona_Service\bin\Release\PublishOutput</_PublishTargetUrl>
   </PropertyGroup>
-  <ItemGroup>
-    <DestinationConnectionStrings Include="Carona_ServiceContext">
-      <Value>Server=NOTEYGOR\SQLEXPRESS;Database=CARONAPP;Trusted_Connection=False;MultipleActiveResultSets=true; User Id=sa; Password=carona;</Value>
-    </DestinationConnectionStrings>
-  </ItemGroup>
 </Project>

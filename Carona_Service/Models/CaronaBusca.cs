@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms.Maps;
 
 namespace Carona_Service.Models
 {
@@ -24,10 +25,10 @@ namespace Carona_Service.Models
 
         [Display(Name="Ponto de Partida")]
         [NotMapped]
-        public string PontoPartida { get; set; }
+        public Position PontoPartida { get; set; }
 
         [NotMapped]
-        public string PontoChegada { get; set; }
+        public Position PontoChegada { get; set; }
 
         [Display(Name = "Horário de partida")]
         [DataType(DataType.Time)]

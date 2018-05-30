@@ -8,3 +8,5 @@ C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Caro
 C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.AssemblyInfo.cs
 C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.dll
 C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.pdb
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\Carona_Service.csprojAssemblyReference.cache
+C:\Android\Projects\Solucao_Carona\Carona_Service\obj\Release\netcoreapp2.0\XamlC.stamp

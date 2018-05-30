@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms.Maps;
 
 namespace Carona_Service.Data
 {
@@ -111,20 +112,16 @@ namespace Carona_Service.Data
             return resultado;
         }
 
-        private static void DefinePontos(string origem, string destino, string intermediarios = "")
+        private static void DefinePontos(Position origem, Position destino, List<Position> intermediarios = null)
         {
-            _pontoOrigem = origem.Split(" ").Reverse().Join(" ");
-            _pontoDestino = destino.Split(" ").Reverse().Join(" ");
+            _pontoOrigem = origem.Longitude.ToString() + " " + origem.Latitude.ToString();
+            _pontoDestino = destino.Longitude.ToString() + " " + destino.Latitude.ToString();
 
-            if (!string.IsNullOrEmpty(intermediarios))
+            if (intermediarios != null)
             {
-                var pontos = intermediarios.Split(",").ToList();    //Separa os pontos intermediarios
+                var pontos = intermediarios.Select(x => x.Longitude.ToString() + " " + x.Latitude.ToString()).ToList();
 
-                pontos.ForEach(x => x = x.Split(" ").Reverse().Join(" "));  //Inverte as coordenadas
-
-                intermediarios = pontos.Join(", ");     //Junta os pontos de volta
-
-                _pontosIntermediarios = intermediarios;
+                _pontosIntermediarios = pontos.Join(", ");
             }
         }
     }

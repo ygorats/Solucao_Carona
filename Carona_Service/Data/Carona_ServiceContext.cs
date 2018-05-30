@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Carona_Service.Models;
-using System.Threading;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Carona_Service.Models
 {
@@ -15,13 +9,13 @@ namespace Carona_Service.Models
         {
         }
 
-        public DbSet<Carona_Service.Models.CaronaOferta> CaronaOferta { get; set; }
+        public DbSet<CaronaOferta> CaronaOferta { get; set; }
 
-        public DbSet<Carona_Service.Models.CaronaBusca> CaronaBusca { get; set; }
+        public DbSet<CaronaBusca> CaronaBusca { get; set; }
         
-        public DbSet<Carona_Service.Models.Usuario> Usuario { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
 
-        public DbSet<Carona_Service.Models.Veiculo> Veiculo { get; set; }
+        public DbSet<Veiculo> Veiculo { get; set; }
 
     }
 }

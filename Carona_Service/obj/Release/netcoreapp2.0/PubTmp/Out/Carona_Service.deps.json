@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "b5dc05a52925232f6252b68026581e7b9c93daba"
+    "signature": "8bb114a0c892edc5713df3dcd0865fc39e0babed"
   },
   "compilationOptions": {
     "defines": [
@@ -25,9 +25,11 @@
         "dependencies": {
           "EntityFramework": "6.2.0",
           "Microsoft.AspNetCore.All": "2.0.3",
+          "Microsoft.EntityFrameworkCore": "2.0.1",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
+          "Xamarin.Forms.Maps": "3.1.0.469394-pre1"
         },
         "runtime": {
           "Carona_Service.dll": {}
@@ -4065,6 +4067,31 @@
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
       },
+      "Xamarin.Forms/3.1.0.469394-pre1": {
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Forms.Core.dll": {},
+          "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {},
+          "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/Xamarin.Forms.Core.dll": {},
+          "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {},
+          "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {}
+        }
+      },
+      "Xamarin.Forms.Maps/3.1.0.469394-pre1": {
+        "dependencies": {
+          "Xamarin.Forms": "3.1.0.469394-pre1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Forms.Maps.Design.dll": {},
+          "lib/netstandard2.0/Xamarin.Forms.Maps.dll": {}
+        },
+        "compile": {
+          "lib/netstandard2.0/Xamarin.Forms.Maps.Design.dll": {},
+          "lib/netstandard2.0/Xamarin.Forms.Maps.dll": {}
+        }
+      },
       "Microsoft.NETCore.App/2.0.0": {
         "dependencies": {
           "Microsoft.NETCore.DotNetHostPolicy": "2.0.0",
@@ -6557,6 +6584,20 @@
       "path": "windowsazure.storage/8.1.4",
       "hashPath": "windowsazure.storage.8.1.4.nupkg.sha512",
       "runtimeStoreManifestName": "aspnetcore-store-2.0.0-linux-x64.xml;aspnetcore-store-2.0.0-osx-x64.xml;aspnetcore-store-2.0.0-win7-x64.xml;aspnetcore-store-2.0.0-win7-x86.xml"
+    },
+    "Xamarin.Forms/3.1.0.469394-pre1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V9qHvj2fI2W9EGdBmTcYDAXvk4ZBaAtLywsqcuOXtftL7zxuqsI1JNp357NoKtB85Lv825N88z3Y4BINcS1cdQ==",
+      "path": "xamarin.forms/3.1.0.469394-pre1",
+      "hashPath": "xamarin.forms.3.1.0.469394-pre1.nupkg.sha512"
+    },
+    "Xamarin.Forms.Maps/3.1.0.469394-pre1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-svNSdxmOTX0w/l7ZiqVAL8IbVWLyS7rJHHERPehxxO8FvlH/zHcaxp9uqkSN8P/JKX6EOZoUllfGA9q0KINhgw==",
+      "path": "xamarin.forms.maps/3.1.0.469394-pre1",
+      "hashPath": "xamarin.forms.maps.3.1.0.469394-pre1.nupkg.sha512"
     },
     "Microsoft.NETCore.App/2.0.0": {
       "type": "package",
