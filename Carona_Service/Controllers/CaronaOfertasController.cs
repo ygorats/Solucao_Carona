@@ -26,6 +26,16 @@ namespace Carona_Service.Controllers
             return View(await _context.CaronaOferta.ToListAsync());
         }
 
+        // GET: CaronaBuscas
+        public async Task<string> IndexBusca(CaronaOferta carona)
+        {
+            var caronasBuscadas = await CaronaUtil.ConsulteCaronasBuscadasAsync(carona.Id.ToString(), _context);
+            //return  RedirectToAction("IndexResultadoBusca", "CaronaOfertas", carona); // View(nameof(), model);
+
+            var retorno = JsonConvert.SerializeObject(caronasBuscadas);
+            return retorno;
+        }
+
         public async Task<IActionResult> IndexResultadoBusca(string referencia)
         {
             //var id = (Guid)ViewBag.id;
@@ -61,21 +71,25 @@ namespace Carona_Service.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<string> Create(string caronaOfertaJson) //[Bind("Id,IdUsuario,Descricao,HorarioPartida,HorarioChegada,PontoPartida,PontoChegada")]
+        public async Task<string> Create(string caronaJson) //[Bind("Id,IdUsuario,Descricao,HorarioPartida,HorarioChegada,PontoPartida,PontoChegada")]
         {
             try
             {
-                var caronaOferta = JsonConvert.DeserializeObject<CaronaOferta>(caronaOfertaJson);
+                var caronaOferta = JsonConvert.DeserializeObject<CaronaOferta>(caronaJson);
+                var resultadoTask = "";
                 if (ModelState.IsValid)
                 {
                     caronaOferta.Id = Guid.NewGuid();
-                    _context.Add(caronaOferta);
-                    await _context.SaveChangesAsync();
+                    var resultado = await CaronaUtil.CadastreCaronaOfertaAsync(caronaOferta, _context);
+                    resultadoTask = resultado.ToString();
+
+                    //_context.Add(caronaOferta);
+                    //await _context.SaveChangesAsync();
                     
-                    return "Carona cadastrada com sucesso\n" + caronaOferta.Descricao + "\n" + caronaOferta.PontoPartida.ToString();
+                    return "Carona cadastrada com sucesso\n" + caronaOferta.Descricao;
                     
                 }
-                return "Não foi possível cadastrar esta carona";
+                return "Não foi possível cadastrar esta carona\nResultado: " + resultadoTask;
             }
             catch(Exception e)
             {

@@ -112,6 +112,24 @@ namespace Carona_Service.Data
             return resultado;
         }
 
+        public static async Task<List<CaronaBusca>> ConsulteCaronasBuscadasAsync(string id, Carona_ServiceContext contexto)
+        {
+            var consulta = new StringBuilder();
+            consulta.Append(" SELECT ");
+            consulta.Append("   BUSCA.ID, BUSCA.IDUSUARIO, BUSCA.DESCRICAO, BUSCA.HORARIOPARTIDA, BUSCA.HORARIOCHEGADA ");
+            consulta.Append(" FROM CARONAOFERTA OFERTA, CARONABUSCA BUSCA ");
+            consulta.Append(" WHERE ");
+            consulta.Append("   BUSCA.PONTOPARTIDA.STDistance(OFERTA.TRAJETO) < 1001 AND  ");
+            consulta.Append("   BUSCA.PONTOCHEGADA.STDistance(OFERTA.TRAJETO) < 1001 AND ");
+            consulta.Append("   (DATEDIFF(MINUTE, BUSCA.HORARIOCHEGADA, OFERTA.HORARIOCHEGADA) BETWEEN -30 AND 30) AND ");
+            consulta.Append("   ((BUSCA.PONTOPARTIDA.STDistance(OFERTA.PONTOPARTIDA) + BUSCA.PONTOCHEGADA.STDistance(OFERTA.PONTOCHEGADA)) > OFERTA.PONTOPARTIDA.STDistance(OFERTA.PONTOCHEGADA)) AND ");
+            consulta.Append("   BUSCA.ID = '" + id + "' ");
+
+            var resultado = await contexto.CaronaBusca.FromSql(consulta.ToString()).ToListAsync();
+
+            return resultado;
+        }
+
         private static void DefinePontos(Position origem, Position destino, List<Position> intermediarios = null)
         {
             _pontoOrigem = origem.Longitude.ToString() + " " + origem.Latitude.ToString();

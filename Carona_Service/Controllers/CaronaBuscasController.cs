@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carona_Service.Models;
 using Carona_Service.Data;
+using Newtonsoft.Json;
 
 namespace Carona_Service.Controllers
 {
@@ -26,10 +27,13 @@ namespace Carona_Service.Controllers
         }
 
         // GET: CaronaBuscas
-        public async Task<IActionResult> IndexBusca(CaronaBusca carona)
+        public async Task<string> IndexBusca(CaronaBusca carona)
         {
-            //var model = await CaronaUtil.ConsulteCaronasOfertadasAsync(carona, _context);
-            return  RedirectToAction("IndexResultadoBusca", "CaronaOfertas", carona); // View(nameof(), model);
+            var caronasOfertadas = await CaronaUtil.ConsulteCaronasOfertadasAsync(carona.Id.ToString(), _context);
+            //return  RedirectToAction("IndexResultadoBusca", "CaronaOfertas", carona); // View(nameof(), model);
+
+            var retorno = JsonConvert.SerializeObject(caronasOfertadas);
+            return retorno;
         }
 
         // GET: CaronaBuscas/Details/5
@@ -60,19 +64,33 @@ namespace Carona_Service.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Descricao,PontoPartida, PontoChegada, HorarioPartida,HorarioChegada")] CaronaBusca caronaBusca)
+        public async Task<string> Create(string caronaJson)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                caronaBusca.Id = Guid.NewGuid();
+                var caronaBusca = JsonConvert.DeserializeObject<CaronaBusca>(caronaJson);
+                var resultadoTask = "";
+                if (!ModelState.IsValid)
+                {
+                    caronaBusca.Id = Guid.NewGuid();
 
-                var resultado = await CaronaUtil.CadastreCaronaBuscaAsync(caronaBusca, _context);
+                    var resultado = await CaronaUtil.CadastreCaronaBuscaAsync(caronaBusca, _context);
+                    resultadoTask = resultado.ToString();
 
-                ViewBag.id = caronaBusca.Id;
-                return RedirectToAction("IndexResultadoBusca", "CaronaOfertas", caronaBusca.Id.ToString());
+                    ViewBag.id = caronaBusca.Id;
+                    return "Carona cadastrada com sucesso\n" + caronaBusca.Descricao;
+                }
+
+                return "Não foi possível cadastrar esta carona\nResultado: " + resultadoTask;
             }
-            return View(caronaBusca);
+            catch (Exception e)
+            {
+                while (e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+                return "Ocorreu um erro: " + e.Message;
+            }
         }
 
         // GET: CaronaBuscas/Edit/5
