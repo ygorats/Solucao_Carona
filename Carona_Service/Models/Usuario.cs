@@ -1,24 +1,62 @@
-﻿using System;
+﻿using Carona_Service.Enums;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Carona_Service.Models
 {
-    public class Usuario
+    [JsonObject]
+    public class Usuario : View
     {
-        public Guid Id { get; set; }
+        //public Guid Id { get; set; }
+        //[EmailAddress]
+        //public string Email { get; set; }
 
-        public string Nome { get; set; }
+        public Guid Id { get { return Id; } set => Id = Guid.NewGuid(); }
 
-        [EmailAddress]
+        [JsonProperty("id")]
+        public string GoogleId { get; set; }
+
+        [JsonProperty("email")]
         public string Email { get; set; }
+
+        [JsonProperty("verified_email")]
+        public bool EmailVerificado { get; set; }
+
+        [JsonProperty("name")]
+        public string Nome { get; set; }
 
         [MaxLength(11), MinLength(11)]
         public string Cpf { get; set; }
 
         [DataType(DataType.PhoneNumber)]
         public string Telefone { get; set; }
+
+        [JsonProperty("given_name")]
+        public string GivenName { get; set; }
+
+        [JsonProperty("family_name")]
+        public string FamilyName { get; set; }
+
+        [JsonProperty("link")]
+        public string Link { get; set; }
+
+        [JsonProperty("picture")]
+        public string UrlFoto { get; set; }
+
+        public Image Foto
+        {
+            get { return Foto; }
+            set => Foto = new Image() { Source = ImageSource.FromUri(new Uri(UrlFoto)) };
+        }
+
+        [JsonProperty("gender")]
+        public string Gender { get; set; }
+
+        public EnumSexo Sexo => Dicionarios.DicionarioSexo[Gender];
     }
 }

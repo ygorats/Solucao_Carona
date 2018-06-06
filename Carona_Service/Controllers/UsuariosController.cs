@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carona_Service.Models;
+using Newtonsoft.Json;
 
 namespace Carona_Service.Controllers
 {
@@ -52,17 +53,29 @@ namespace Carona_Service.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Email,Cpf,Telefone")] Usuario usuario)
+        public async Task<Usuario> Create(string usuarioJson)
         {
-            if (ModelState.IsValid)
+            var usuario = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+            var verificacaoDeUsuario = _context.Usuario.FirstOrDefault(user => user.Email == usuario.Email);
+            if (verificacaoDeUsuario != null)
             {
-                usuario.Id = Guid.NewGuid();
-                _context.Add(usuario);
+                CopieNovosDadosDeUsuario(verificacaoDeUsuario, usuario);
+                _context.Usuario.Update(verificacaoDeUsuario);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return verificacaoDeUsuario;
             }
-            return View(usuario);
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    //usuario.Id = Guid.NewGuid();
+                    _context.Add(usuario);
+                    await _context.SaveChangesAsync();
+                    return usuario;
+                }
+
+                return null;
+            }
         }
 
         // GET: Usuarios/Edit/5
@@ -148,6 +161,15 @@ namespace Carona_Service.Controllers
         private bool UsuarioExists(Guid id)
         {
             return _context.Usuario.Any(e => e.Id == id);
+        }
+
+        private void CopieNovosDadosDeUsuario(Usuario antigo, Usuario novo)
+        {
+            antigo.Nome = novo.Nome;
+            antigo.Foto = novo.Foto;
+            antigo.Gender = novo.Gender;
+            antigo.Telefone = novo.Telefone;
+            antigo.UrlFoto = novo.UrlFoto;
         }
     }
 }
