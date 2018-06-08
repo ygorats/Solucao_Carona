@@ -15,6 +15,8 @@ namespace Carona_Service.Controllers
     {
         private readonly Carona_ServiceContext _context;
 
+        private ServiceResult _resultado;
+
         public CaronaOfertasController(Carona_ServiceContext context)
         {
             _context = context;
@@ -71,7 +73,7 @@ namespace Carona_Service.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<string> Create(string caronaJson) //[Bind("Id,IdUsuario,Descricao,HorarioPartida,HorarioChegada,PontoPartida,PontoChegada")]
+        public async Task<ServiceResult> Create(string caronaJson) //[Bind("Id,IdUsuario,Descricao,HorarioPartida,HorarioChegada,PontoPartida,PontoChegada")]
         {
             try
             {
@@ -85,11 +87,12 @@ namespace Carona_Service.Controllers
 
                     //_context.Add(caronaOferta);
                     //await _context.SaveChangesAsync();
-                    
-                    return "Carona cadastrada com sucesso\n" + caronaOferta.Descricao;
-                    
+
+                    _resultado = new ServiceResult(true, JsonConvert.SerializeObject(caronaOferta));
+                    return _resultado;
                 }
-                return "Não foi possível cadastrar esta carona\nResultado: " + resultadoTask;
+                _resultado = new ServiceResult(false, JsonConvert.SerializeObject(ModelState));
+                return _resultado;
             }
             catch(Exception e)
             {
@@ -97,7 +100,9 @@ namespace Carona_Service.Controllers
                 {
                     e = e.InnerException;
                 }
-                return "Ocorreu um erro: " + e.Message;
+
+                _resultado = new ServiceResult(false, JsonConvert.SerializeObject(e));
+                return _resultado;
             }
         }
 

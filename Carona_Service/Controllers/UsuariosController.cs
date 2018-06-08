@@ -55,28 +55,47 @@ namespace Carona_Service.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<Usuario> Create(string usuarioJson)
+        public async Task<ServiceResult> Create(string usuarioJson)
         {
-            var usuario = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
-            var verificacaoDeUsuario = _context.Usuario.FirstOrDefault(user => user.Email == usuario.Email);
-            if (verificacaoDeUsuario != null)
+            ServiceResult resultado;
+
+            try
             {
-                CopieNovosDadosDeUsuario(verificacaoDeUsuario, usuario);
-                _context.Usuario.Update(verificacaoDeUsuario);
-                await _context.SaveChangesAsync();
-                return verificacaoDeUsuario;
-            }
-            else
-            {
-                if (ModelState.IsValid)
+                var usuario = JsonConvert.DeserializeObject<Usuario>(usuarioJson);
+                var verificacaoDeUsuario = _context.Usuario.FirstOrDefault(user => user.Email == usuario.Email);
+                if (verificacaoDeUsuario != null)
                 {
-                    //usuario.Id = Guid.NewGuid();
-                    _context.Add(usuario);
+                    CopieNovosDadosDeUsuario(verificacaoDeUsuario, usuario);
+                    _context.Usuario.Update(verificacaoDeUsuario);
                     await _context.SaveChangesAsync();
-                    return usuario;
+                    resultado = new ServiceResult(true, JsonConvert.SerializeObject(verificacaoDeUsuario));
+                    return resultado;
+                }
+                else
+                {
+                    if (ModelState.IsValid)
+                    {
+                        //usuario.Id = Guid.NewGuid();
+                        _context.Add(usuario);
+                        await _context.SaveChangesAsync();
+                        resultado = new ServiceResult(true, JsonConvert.SerializeObject(usuario));
+                        return resultado;
+                    }
+
+                    resultado = new ServiceResult(false, JsonConvert.SerializeObject(ModelState));
+                    return resultado;
                 }
 
-                return null;
+            }
+            catch (Exception e)
+            {
+                while (e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+
+                resultado = new ServiceResult(false, JsonConvert.SerializeObject(e));
+                return resultado;
             }
         }
 
