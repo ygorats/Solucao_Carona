@@ -4,7 +4,7 @@ namespace Carona_Service.Models
 {
     public class Carona_ServiceContext : DbContext
     {
-        public Carona_ServiceContext (DbContextOptions<Carona_ServiceContext> options)
+        public Carona_ServiceContext(DbContextOptions<Carona_ServiceContext> options)
             : base(options)
         {
         }

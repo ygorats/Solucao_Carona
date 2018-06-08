@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -10,7 +11,7 @@ using Xamarin.Forms;
 namespace Carona_Service.Models
 {
     [JsonObject]
-    public class Usuario : View
+    public class Usuario
     {
         //public Guid Id { get; set; }
         //[EmailAddress]
@@ -48,6 +49,7 @@ namespace Carona_Service.Models
         [JsonProperty("picture")]
         public string UrlFoto { get; set; }
 
+        [NotMapped]
         public Image Foto
         {
             get { return Foto; }
@@ -57,6 +59,7 @@ namespace Carona_Service.Models
         [JsonProperty("gender")]
         public string Gender { get; set; }
 
+        [NotMapped]
         public EnumSexo Sexo => Dicionarios.DicionarioSexo[Gender];
     }
 }

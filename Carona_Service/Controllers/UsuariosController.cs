@@ -20,12 +20,14 @@ namespace Carona_Service.Controllers
         }
 
         // GET: Usuarios
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Usuario.ToListAsync());
         }
 
         // GET: Usuarios/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)

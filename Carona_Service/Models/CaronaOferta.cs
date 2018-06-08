@@ -9,9 +9,9 @@ namespace Carona_Service.Models
     public class CaronaOferta
     {
         public Guid Id { get; set; }
-
+                
         public Guid IdUsuario { get; set; }
-
+        
         public string Descricao { get; set; }
 
         [Display(Name="Ponto de Partida")]

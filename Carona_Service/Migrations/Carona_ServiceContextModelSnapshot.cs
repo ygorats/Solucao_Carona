@@ -17,7 +17,7 @@ namespace Carona_Service.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
+                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Carona_Service.Models.CaronaBusca", b =>
@@ -66,9 +66,23 @@ namespace Carona_Service.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<bool>("EmailVerificado");
+
+                    b.Property<string>("FamilyName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("GivenName");
+
+                    b.Property<string>("GoogleId");
+
+                    b.Property<string>("Link");
+
                     b.Property<string>("Nome");
 
                     b.Property<string>("Telefone");
+
+                    b.Property<string>("UrlFoto");
 
                     b.HasKey("Id");
 
