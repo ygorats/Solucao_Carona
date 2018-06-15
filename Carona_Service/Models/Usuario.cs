@@ -17,7 +17,7 @@ namespace Carona_Service.Models
         //[EmailAddress]
         //public string Email { get; set; }
 
-        public Guid Id { get { return Id; } set => Id = Guid.NewGuid(); }
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         [JsonProperty("id")]
         public string GoogleId { get; set; }
@@ -50,16 +50,20 @@ namespace Carona_Service.Models
         public string UrlFoto { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public Image Foto
         {
-            get { return Foto; }
-            set => Foto = new Image() { Source = ImageSource.FromUri(new Uri(UrlFoto)) };
+            get { return new Image() { Source = ImageSource.FromUri(new Uri(UrlFoto)) };  }
         }
 
         [JsonProperty("gender")]
         public string Gender { get; set; }
 
         [NotMapped]
-        public EnumSexo Sexo => Dicionarios.DicionarioSexo[Gender];
+        [JsonIgnore]
+        public EnumSexo Sexo
+        {
+            get { return Dicionarios.DicionarioSexo[Gender]; }
+        }
     }
 }

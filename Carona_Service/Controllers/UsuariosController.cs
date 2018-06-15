@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carona_Service.Models;
 using Newtonsoft.Json;
+using System.IO;
+using System.Text;
 
 namespace Carona_Service.Controllers
 {
+    [Route("[controller]")]
     public class UsuariosController : Controller
     {
         private readonly Carona_ServiceContext _context;
@@ -27,7 +28,8 @@ namespace Carona_Service.Controllers
         }
 
         // GET: Usuarios/Details/5
-        [HttpGet]
+        [HttpGet("{id}")]
+        [ActionName("Details")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -46,6 +48,8 @@ namespace Carona_Service.Controllers
         }
 
         // GET: Usuarios/Create
+        [HttpGet("Create")]
+        [ActionName("Create")]
         public IActionResult Create()
         {
             return View();
@@ -54,7 +58,12 @@ namespace Carona_Service.Controllers
         // POST: Usuarios/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /// <summary>
+        /// Cadastra um usuário.
+        /// </summary>
+        /// <param name="usuarioJson">O json com os dados daquele usuário.</param>
+        /// <returns>O resultado do serviço.</returns>
+		[HttpPost("Create")]
         public async Task<ServiceResult> Create(string usuarioJson)
         {
             ServiceResult resultado;
@@ -94,6 +103,7 @@ namespace Carona_Service.Controllers
                     e = e.InnerException;
                 }
 
+                System.IO.File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData, Environment.SpecialFolderOption.Create) + "/ErrorLog", JsonConvert.SerializeObject(e));
                 resultado = new ServiceResult(false, JsonConvert.SerializeObject(e));
                 return resultado;
             }
@@ -119,7 +129,6 @@ namespace Carona_Service.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,Nome,Email,Cpf,Telefone")] Usuario usuario)
         {
             if (id != usuario.Id)
@@ -170,7 +179,6 @@ namespace Carona_Service.Controllers
 
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var usuario = await _context.Usuario.SingleOrDefaultAsync(m => m.Id == id);
@@ -187,7 +195,6 @@ namespace Carona_Service.Controllers
         private void CopieNovosDadosDeUsuario(Usuario antigo, Usuario novo)
         {
             antigo.Nome = novo.Nome;
-            antigo.Foto = novo.Foto;
             antigo.Gender = novo.Gender;
             antigo.Telefone = novo.Telefone;
             antigo.UrlFoto = novo.UrlFoto;

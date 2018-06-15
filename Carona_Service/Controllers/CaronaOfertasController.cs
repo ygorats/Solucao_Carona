@@ -23,12 +23,14 @@ namespace Carona_Service.Controllers
         }
 
         // GET: CaronaOfertas
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.CaronaOferta.ToListAsync());
         }
 
         // GET: CaronaBuscas
+        [HttpGet]
         public async Task<string> IndexBusca(CaronaOferta carona)
         {
             var caronasBuscadas = await CaronaUtil.ConsulteCaronasBuscadasAsync(carona.Id.ToString(), _context);
@@ -38,6 +40,7 @@ namespace Carona_Service.Controllers
             return retorno;
         }
 
+        [HttpGet]
         public async Task<IActionResult> IndexResultadoBusca(string referencia)
         {
             //var id = (Guid)ViewBag.id;
@@ -46,6 +49,7 @@ namespace Carona_Service.Controllers
         }
 
         // GET: CaronaOfertas/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -64,6 +68,7 @@ namespace Carona_Service.Controllers
         }
 
         // GET: CaronaOfertas/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -106,32 +111,6 @@ namespace Carona_Service.Controllers
             }
         }
 
-        [HttpPost]
-        public string Teste()
-        {
-            //var teste = JsonConvert.DeserializeObject<CaronaOferta>(param);
-            //var formatada = string.Format("\nDescr: {0} \nLat:{1} \nLong:{2}", param.Descricao, param.PontoPartida.Latitude.ToString(), param.PontoPartida.Longitude.ToString());
-            //var form2 = string.Format("Null:{0}\nToString:{1}", (param == null).ToString(), param.ToString());
-
-            return "Mensagem enviada e recebida:\n " + "sem parametros" + ".\n fim da msg";
-        }
-
-        [HttpPost]
-        public string TesteStr(string caronaOfertaJson)
-        {
-            try
-            {
-                //var teste = JsonConvert.DeserializeObject<CaronaOferta>(param);
-                //var formatada = string.Format("\nDescr: {0} \nLat:{1} \nLong:{2}", teste.Descricao, teste.PontoPartida.Latitude.ToString(), teste.PontoPartida.Longitude.ToString());
-
-                return "Mensagem enviada e recebida: \n" + caronaOfertaJson + "\n. fim da msg";
-            }
-            catch(Exception e)
-            {
-                return "Mensagem enviada e erro: \n" + e.Message + "\n. fim da msg";
-            }
-        }
-
         // GET: CaronaOfertas/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
@@ -151,7 +130,7 @@ namespace Carona_Service.Controllers
         // POST: CaronaOfertas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,IdUsuario,Descricao,HorarioPartida,HorarioChegada")] CaronaOferta caronaOferta)
         {
