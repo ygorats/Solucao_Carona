@@ -27,9 +27,9 @@ namespace Carona_Service.Migrations
 
                     b.Property<string>("Descricao");
 
-                    b.Property<DateTime>("HorarioChegada");
+                    b.Property<TimeSpan>("HorarioChegada");
 
-                    b.Property<DateTime>("HorarioPartida");
+                    b.Property<TimeSpan>("HorarioPartida");
 
                     b.Property<Guid>("IdUsuario");
 
@@ -45,9 +45,9 @@ namespace Carona_Service.Migrations
 
                     b.Property<string>("Descricao");
 
-                    b.Property<DateTime>("HorarioChegada");
+                    b.Property<TimeSpan>("HorarioChegada");
 
-                    b.Property<DateTime>("HorarioPartida");
+                    b.Property<TimeSpan>("HorarioPartida");
 
                     b.Property<Guid>("IdUsuario");
 

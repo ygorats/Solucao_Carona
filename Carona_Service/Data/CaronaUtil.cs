@@ -42,8 +42,8 @@ namespace Carona_Service.Data
                                                                             new SqlParameter("@id", carona.Id.ToString()),
                                                                             new SqlParameter("@idUsuario", carona.IdUsuario.ToString()),
                                                                             new SqlParameter("@descricao", carona.Descricao),
-                                                                            new SqlParameter("@horarioPartida", carona.HorarioPartida.ToShortTimeString()),
-                                                                            new SqlParameter("@horarioChegada", carona.HorarioChegada.ToShortTimeString()));
+                                                                            new SqlParameter("@horarioPartida", carona.HorarioPartida.ToString()),
+                                                                            new SqlParameter("@horarioChegada", carona.HorarioChegada.ToString()));
                
 
             }
@@ -82,8 +82,8 @@ namespace Carona_Service.Data
                                                                             new SqlParameter("@id", carona.Id.ToString()),
                                                                             new SqlParameter("@idUsuario", carona.IdUsuario.ToString()),
                                                                             new SqlParameter("@descricao", carona.Descricao),
-                                                                            new SqlParameter("@horarioPartida", carona.HorarioPartida.ToShortTimeString()),
-                                                                            new SqlParameter("@horarioChegada", carona.HorarioChegada.ToShortTimeString()));
+                                                                            new SqlParameter("@horarioPartida", carona.HorarioPartida.ToString()),
+                                                                            new SqlParameter("@horarioChegada", carona.HorarioChegada.ToString()));
 
             }
             catch (Exception e)

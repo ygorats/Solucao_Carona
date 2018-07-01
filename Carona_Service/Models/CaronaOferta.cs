@@ -26,10 +26,10 @@ namespace Carona_Service.Models
 
         [Display(Name = "Horário de partida")]
         [DataType(DataType.Time)]
-        public DateTime HorarioPartida { get; set; }
+        public TimeSpan HorarioPartida { get; set; }
 
         [Display(Name ="Horário de Chegada")]
         [DataType(DataType.Time)]
-        public DateTime HorarioChegada { get; set; }
+        public TimeSpan HorarioChegada { get; set; }
     }
 }
